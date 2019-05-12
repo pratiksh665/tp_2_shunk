@@ -2,9 +2,11 @@ import edu.princeton.cs.introcs.StdOut;
 
 public class Player {
 
+	
 	public int playerScore; //uninitialized value is zero
+	public int turnScore;
+	public int roundScore;
 	public String name; //uninitialized value is null
-//	public boolean hundred; //uninitialized value is false
 	public int chip; //uninitialized value is zero
 
 	
@@ -14,6 +16,7 @@ public class Player {
 	
 	public Player (String name) {
 		this.name = name;
+		this.turnScore = 0;
 		this.chip = 50;
 	}
 	
@@ -22,16 +25,25 @@ public class Player {
 		return chip;
 	}
 	
-	public void chipPenalty(int subChip) {
-		chip = chip - subChip;
+	public void addSubChip(int chipChange) {
+		chip = chip + chipChange;
 	}
+
 	
 	public int getScore() {
 		return playerScore;
 	}
 	
-	public void setScore(int score) {
+	public void addScore(int score) {
 		playerScore += score;
+	}
+	
+	public int getTurnScore() {
+		return turnScore;
+	}
+
+	public void setTurnScore(int turnScore) {
+		this.turnScore = turnScore;
 	}
 
 }

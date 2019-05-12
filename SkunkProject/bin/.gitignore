@@ -1,5 +1,6 @@
 /AppRunner.class
 /AppRunnerTest.class
+/Controller.class
 /Dice.class
 /DiceTest.class
 /Die.class
@@ -9,7 +10,3 @@
 /SkunkApp.class
 /Turn.class
 /TurnTest.class
-/TestSuite.class
-/TestSuiteRunner.class
-/TestSuite$TestSuiteExample.class
-/Controller.class

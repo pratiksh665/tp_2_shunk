@@ -44,16 +44,6 @@ public class Die
 		return this.lastRoll;
 	}
 
-	public int getDie1()
-	{
-		return this.getLastRoll();
-	}
-
-	public int getDie2()
-	{
-		return this.getLastRoll();
-	}
-
 	public void roll() // note how this changes Die's state, but doesn't return anything
 	{
 		if (isItARandomRoll == true)

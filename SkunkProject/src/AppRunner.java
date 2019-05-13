@@ -32,11 +32,12 @@ public class AppRunner {
 			if (c.finalTurnsFlag) {
 				for (int i = 0; i < turnsLeft; i++) {
 					StdOut.println("\nFinal Turn in Round\n");
-					StdOut.println("turnsLeft" + turnsLeft);
+					StdOut.println("turnsLeft " + turnsLeft);
 					StdOut.println("i in loop " + i);
 					playerTurns();	
-					}
-				c.roundEnd();
+				}
+				StdOut.println(c.roundEnd());
+				break;
 			} else {
 				playerTurns();
 			}

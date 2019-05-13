@@ -6,9 +6,9 @@ public class Player {
 	public int playerScore; //uninitialized value is zero
 	public int turnScore;
 	public int roundScore;
+	public int lastTurnScore;
 	public String name; //uninitialized value is null
 	public int chip; //uninitialized value is zero
-
 	
 	public Player () {
 		
@@ -26,7 +26,7 @@ public class Player {
 	}
 	
 	public void addSubChip(int chipChange) {
-		chip = chip + chipChange;
+		chip += chipChange;
 	}
 
 	
@@ -45,5 +45,18 @@ public class Player {
 	public void setTurnScore(int turnScore) {
 		this.turnScore = turnScore;
 	}
+	
+	
+	public boolean checkHundred () {
+		if (getTurnScore() >= 100) {
+			return true;
+		}
+		return false;
+	}
+
+	public void setLastTurnScore(int turnScore) {
+		this.lastTurnScore = turnScore;;
+	}
+
 
 }

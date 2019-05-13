@@ -7,17 +7,17 @@ import java.util.Scanner;
 
 import edu.princeton.cs.introcs.*;
 
-//-------------------------TP 1.2 changes--------------------------------------------------//
 public class AppRunner {
 	boolean turnInProg;
 	boolean roundInProg;
-	Player currentPlayer;
+	Controller c = new Controller();
+	Scanner scan = new Scanner(System.in);
+
+	
 	
 	public void displayGame() {
-		Controller c = new Controller();
 		StdOut.println("Welcome to 635 Skunk project");
 		StdOut.println("Creating the dice object");
-		Scanner scan = new Scanner(System.in);
 		StdOut.println("Would you like to see the rules? (Yes/No)");
 		if (scan.next().equalsIgnoreCase("Yes") ) {
 			c.showRules();
@@ -28,21 +28,37 @@ public class AppRunner {
 		roundInProg = true;
 
 		while(roundInProg) {
-			currentPlayer = c.currentPlayer;
-			StdOut.println(currentPlayer.name + " start your turn ?(Yes/No)");
-			String decision = scan.next(); 
-			c.playerTurn(decision);
-		
-			while (c.turnInProg) {
-				StdOut.println(c.currentPlayer.name + " would you like to roll? (Yes/No)");
-				String rollTurn = scan.next();
-				if (rollTurn.equalsIgnoreCase("Yes")) {
-					StdOut.println(c.playerTurnContinue(currentPlayer));
-				}
-				else if (rollTurn.equalsIgnoreCase("No")) {
-					StdOut.println(c.playerTurnEnd(currentPlayer));
-				}
+			int turnsLeft = numPlayers-1;
+			if (c.finalTurnsFlag) {
+				for (int i = 0; i < turnsLeft; i++) {
+					StdOut.println("\nFinal Turn in Round\n");
+					StdOut.println("turnsLeft" + turnsLeft);
+					StdOut.println("i in loop " + i);
+					playerTurns();	
+					}
+				c.roundEnd();
+			} else {
+				playerTurns();
 			}
-		}
+		} 
+	
 	}
-}// end of class
+	
+	public void playerTurns() {
+		StdOut.println(c.currentPlayer.name + " start your turn ?(Yes/No)");
+		String decision = scan.next(); 
+		c.playerTurn(decision);
+	
+		while (c.turnInProg) {
+			StdOut.println(c.currentPlayer.name + " would you like to roll? (Yes/No)");
+			String rollTurn = scan.next();
+			if (rollTurn.equalsIgnoreCase("Yes")) {
+				StdOut.println(c.playerTurnContinue(c.currentPlayer));
+			}
+			else if (rollTurn.equalsIgnoreCase("No")) {
+				StdOut.println(c.playerTurnEnd(c.currentPlayer));
+			}
+		} 
+	}
+	
+}

@@ -12,10 +12,11 @@ public class Controller {
 	public ArrayList<Player> playerList = new ArrayList();
 	public Dice dice;
 	public int kitty;
-	public int roundGoal;
+	public int roundGoal = 100;
 	public Player currentPlayer;
 	public int currentPlayerIndex;
 	public boolean turnInProg;
+	public boolean finalTurnsFlag;
 
 	public void createPlayer(int numPlayers) {
 		for (int j = 1; j <= numPlayers; j++) {
@@ -63,13 +64,24 @@ public class Controller {
 		return rollInfo(player);
 	}
 	
+	public String allPlayersInfo() {
+		
+		StringBuilder sb = new StringBuilder();
+		
+		for (Player player : playerList) {
+		sb.append(player.name + "'s Game Score (Chip Score): ");
+		sb.append("\nChip total: " + player.getChip());
+		}
+		return sb.toString();
+	}
+	
 	public String rollInfo(Player player) {
 		String message = "Roll Info: "
 				+ "\nDie 1: " + getDie1Value() + ";" + " Die 2: " + getDie2Value()
 				+ "\nRoll total: " + getDiceValue()
-				+ "\nTurn total: " + player.getTurnScore()
+				+ "\nTurn total: " + player.getTurnScore() + "  ||  Goal: " + roundGoal
 				+ "\nGame total: " + player.getScore()
-				+ "\nKitty total: " + player.getChip()
+				+ "\nChip total: " + player.getChip()
 				+ "\n" + checkSkunk(player)
 				+ "\n" + checkHundred(player);
 		return message;
@@ -78,11 +90,12 @@ public class Controller {
 	public String playerTurnEnd(Player player) {
 		int turnScore = player.getTurnScore();
 		player.addScore(turnScore);
-		String message = player.name + " is ending turn \nTurn score was " + player.getTurnScore() + "\nRound score is " + player.getScore();
+		String message = player.name + " is ending turn \nRound score : " + player.getScore() + "\nChip Count: " + player.getChip();
 		turnInProg = false;
+		player.setLastTurnScore(turnScore);
+		player.setTurnScore(0);
 		nextPlayer();
 		return message;
-
 	} 
 	
 	public String checkSkunk(Player player) {
@@ -91,7 +104,9 @@ public class Controller {
 			if (dice.isSkunk()) {
 				message = "You rolled a Skunk; end of turn \nTotal score is " + player.getScore();
 				player.addSubChip(-1);
+				StdOut.println("chips: " + player.getChip());
 				kitty += 1;
+				StdOut.println("kitty: " + kitty);
 				playerTurnEnd(currentPlayer);
 			}
 			else if (dice.isDoubleSkunk()) {
@@ -107,17 +122,37 @@ public class Controller {
 	
 	public  String checkHundred (Player player) {
 		String message = "";
-		if (player.getTurnScore() >= 100) {
-			message = player.name + " has reached 100 points.  Continue rolling to raise the round goal, or stop here? ";
-			roundGoal = player.getScore();
+		if (player.getTurnScore() >= roundGoal ) {
+			message = player.name + " has reached " + roundGoal + "+ points.  Continue rolling to raise the round goal, or stop here? ";
+			setRoundGoal(player.getTurnScore());
+			setFinalTurnFlag(true);
 		}
 		return message;
 	}
 	
-	public String roundEnd(Player player) {
-		String message =  player.name + " won the round with " + player.playerScore + " points!";
+	private void setRoundGoal(int goal) {
+		this.roundGoal = goal;
+	}
+	
+	public void setFinalTurnFlag(boolean b) {
+		this.finalTurnsFlag = b;
+	}
+
+	public String roundEnd() { 
+		Player roundWinner = null;
+		for (Player player : playerList) {
+			int score = player.lastTurnScore;
+			if (score == roundGoal) {
+				roundWinner = player;
+				roundWinner.addSubChip(kitty);
+			}
+			player.roundScore = 0;
+		}
+		String message =  roundWinner.name + " won the round with " + roundWinner.getScore() + " points!";
 		return message;
 	}
+	
+	
 	
 	
 	public void showRules() {

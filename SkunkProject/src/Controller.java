@@ -90,6 +90,10 @@ public class Controller {
 	public String playerTurnEnd(Player player) {
 		int turnScore = player.getTurnScore();
 		player.addScore(turnScore);
+		if (player.getTurnScore() >= roundGoal) {
+			setRoundGoal(player.getTurnScore());
+			setFinalTurnFlag(true);
+		}
 		String message = player.name + " is ending turn \nRound score : " + player.getScore() + "\nChip Count: " + player.getChip();
 		turnInProg = false;
 		player.setLastTurnScore(turnScore);
@@ -124,8 +128,7 @@ public class Controller {
 		String message = "";
 		if (player.getTurnScore() >= roundGoal ) {
 			message = player.name + " has reached " + roundGoal + "+ points.  Continue rolling to raise the round goal, or stop here? ";
-			setRoundGoal(player.getTurnScore());
-			setFinalTurnFlag(true);
+
 		}
 		return message;
 	}
@@ -140,6 +143,7 @@ public class Controller {
 
 	public String roundEnd() { 
 		Player roundWinner = null;
+		int roundKitty = kitty;
 		for (Player player : playerList) {
 			int score = player.lastTurnScore;
 			if (score == roundGoal) {
@@ -148,7 +152,10 @@ public class Controller {
 			}
 			player.roundScore = 0;
 		}
-		String message =  roundWinner.name + " won the round with " + roundWinner.getScore() + " points!";
+		kitty = 0;
+		roundGoal = 100;
+		finalTurnsFlag = false;
+		String message = "\n" + roundWinner.name + " won the round with " + roundWinner.getScore() + " points! " + roundWinner.name + " receives " + roundKitty + " chip(s)\n";
 		return message;
 	}
 	

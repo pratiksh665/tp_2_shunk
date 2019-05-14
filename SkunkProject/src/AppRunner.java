@@ -10,6 +10,7 @@ import edu.princeton.cs.introcs.*;
 public class AppRunner {
 	boolean turnInProg;
 	boolean roundInProg;
+	boolean gameInProg;
 	Controller c = new Controller();
 	Scanner scan = new Scanner(System.in);
 
@@ -26,7 +27,11 @@ public class AppRunner {
 		int numPlayers = scan.nextInt();
 		c.createPlayer(numPlayers);
 		roundInProg = true;
+		gameInProg = true;
 
+		while(gameInProg) {
+			roundInProg = true;
+		
 		while(roundInProg) {
 			int turnsLeft = numPlayers-1;
 			if (c.finalTurnsFlag) {
@@ -37,12 +42,12 @@ public class AppRunner {
 					playerTurns();	
 				}
 				StdOut.println(c.roundEnd());
-				break;
+				roundInProg = false;
 			} else {
 				playerTurns();
 			}
 		} 
-	
+		}
 	}
 	
 	public void playerTurns() {

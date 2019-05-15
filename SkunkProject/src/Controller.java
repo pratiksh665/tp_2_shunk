@@ -19,9 +19,10 @@ public class Controller {
 	public boolean finalTurnsFlag;
 
 	public void createPlayer(int numPlayers) {
+		Scanner scan = new Scanner(System.in);
+		
 		for (int j = 1; j <= numPlayers; j++) {
 			StdOut.println("Player " + j + " Name: ");
-			Scanner scan = new Scanner(System.in);
 			Player player = new Player(scan.next());
 			playerList.add(player);
 		}
@@ -157,6 +158,18 @@ public class Controller {
 		finalTurnsFlag = false;
 		String message = "\n" + roundWinner.name + " won the round with " + roundWinner.getScore() + " points! " + roundWinner.name + " receives " + roundKitty + " chip(s)\n";
 		return message;
+	}
+	
+	public Player getWinner() {
+		Player winner = null;
+		int winningScore = 0;
+		for (Player player : playerList) {
+			if(player.getChip() > winningScore) {
+				winner = player;
+			}
+		}
+		
+		return winner;
 	}
 	
 	

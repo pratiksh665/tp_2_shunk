@@ -3,12 +3,11 @@ import edu.princeton.cs.introcs.StdOut;
 public class Player {
 
 	
-	public int playerScore; //uninitialized value is zero
 	public int turnScore;
 	public int roundScore;
 	public int lastTurnScore;
 	public String name; //uninitialized value is null
-	public int chip; //uninitialized value is zero
+	public int chipPile; //uninitialized value is zero
 	
 	public Player () {
 		
@@ -17,25 +16,25 @@ public class Player {
 	public Player (String name) {
 		this.name = name;
 		this.turnScore = 0;
-		this.chip = 50;
+		this.chipPile = 50;
 	}
 	
 	
 	public int getChip() {
-		return chip;
+		return chipPile;
 	}
 	
-	public void addSubChip(int chipChange) {
-		chip += chipChange;
+	public void addChip(int chips) {
+		chipPile += chips;
 	}
 
 	
-	public int getScore() {
-		return playerScore;
+	public int getRoundScore() {
+		return roundScore;
 	}
 	
-	public void addScore(int points) {
-		playerScore += points;
+	public void addRoundScore(int points) {
+		roundScore += points;
 	}
 	
 	public int getTurnScore() {

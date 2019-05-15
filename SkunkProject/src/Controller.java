@@ -69,16 +69,15 @@ public class Controller {
 		StringBuilder sb = new StringBuilder();
 		
 		for (Player player : playerList) {
-		sb.append(player.name + "'s Game Score (Chip Score): ");
-		sb.append("\nChip total: " + player.getChip());
+			sb.append("\n" + player.name + "'s Game Score (Chip Score): " + player.getChip());
 		}
 		return sb.toString();
 	}
 	
 	public String rollInfo(Player player) {
 		String message = "\nRoll Info: "
-				+ "\nDie 1: " + getDie1Value() + ";" + " Die 2: " + getDie2Value()
-				+ "\nRoll total: " + getDiceValue()
+				+ "\nDie 1: " + dice.getDie1() + ";" + " Die 2: " + dice.getDie2()
+				+ "\nRoll total: " + dice.getDiceValue()
 				+ "\nTurn total: " + player.getTurnScore()
 				+ "\nRound total: " + player.getScore() + "  ||  Goal: " + roundGoal
 				+ "\nChip total: " + player.getChip()
@@ -86,7 +85,7 @@ public class Controller {
 				+ "\n" + checkHundred(player);
 		return message;
 	}
-	
+
 	public String playerTurnEnd(Player player) {
 		int turnScore = player.getTurnScore();
 		player.addScore(turnScore);
@@ -97,7 +96,7 @@ public class Controller {
 			message += "\nPlayer " + player.name + " surpassed the goal.  Next player needs to beat " + roundGoal + " points";
 		}
 		turnInProg = false;
-		player.setLastTurnScore(turnScore);
+		allPlayersInfo();
 		player.setTurnScore(0);
 		nextPlayer();
 		return message;
@@ -230,18 +229,5 @@ public class Controller {
        	System.out.println("Error reading file '" + fileName + "'");                  
        }
    }
-	
-	public int getDie1Value() {
-		return dice.getDie1();
-	}
-	
-	public int getDie2Value() {
-		return dice.getDie2();
-	}
-	
-	public int getDiceValue() {
-		return dice.getDiceValue();
-	}
-
 	
 }

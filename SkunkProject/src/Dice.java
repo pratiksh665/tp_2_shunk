@@ -83,14 +83,14 @@ public class Dice
 		return die1.getLastRoll() + die2.getLastRoll();
 	}
 	
-//	public void roll(int[] programmableroll)
-//	{
-//		// roll each of die1, die2, sum their last rolls,
-//		// then set Dice.lastRoll to this value
-//		die1.roll(programmableroll);
-//		die2.roll(programmableroll);
-//		this.lastRoll = die1.getLastRoll() + die2.getLastRoll();
-//	}
+	public void roll(int[] programmableroll)
+	{
+		// roll each of die1, die2, sum their last rolls,
+		// then set Dice.lastRoll to this value
+		die1.roll(programmableroll);
+		die2.roll(programmableroll);
+		this.lastRoll = die1.getLastRoll() + die2.getLastRoll();
+	}
 	
 
 }

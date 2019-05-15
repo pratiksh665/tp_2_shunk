@@ -10,28 +10,24 @@ import edu.princeton.cs.introcs.*;
 public class AppRunner {
 	boolean turnInProg;
 	boolean roundInProg;
-	boolean gameInProg;
-	Controller c = new Controller();
-	Scanner scan = new Scanner(System.in);
-
 	
 	
-	public void displayGame() {
-		StdOut.println("Welcome to 635 Skunk project");
-		StdOut.println("Creating the dice object");
+	public void displayGame(Controller c) {
+		StdOut.println("Welcome to 635 Skunk project\n\n");
 		StdOut.println("Would you like to see the rules? (Yes/No)");
-		if (scan.next().equalsIgnoreCase("Yes") ) {
+		String decision = StdIn.readLine();
+		if (decision.equalsIgnoreCase("Yes") ) {
 			c.showRules();
 		}
 		StdOut.println("Number of players: ");
-		int numPlayers = scan.nextInt();
-		c.createPlayer(numPlayers);
+		int numPlayers = Integer.parseInt(StdIn.readLine());
+		c.createPlayers(numPlayers);
 		roundInProg = true;
-		gameInProg = true;
 
 		
-		for (int round = 1; round <=5; round++) {
-			
+		for (int round = 1; round <=1; round++) {
+			roundInProg = true;
+			while (roundInProg) {
 			StdOut.println("\nRound " + round + "\n");
 			
 			if (c.finalTurnsFlag) {
@@ -39,7 +35,7 @@ public class AppRunner {
 				int turnsLeft = numPlayers-1;
 				for (int i = 0; i < turnsLeft; i++) {
 					StdOut.println("\nFinal Turn in Round\n");
-					playerTurns();	
+					c.playerTurns();	
 				}
 				
 				StdOut.println(c.roundEnd());
@@ -48,35 +44,15 @@ public class AppRunner {
 			
 			else {
 				
-				playerTurns();
+				c.playerTurns();
+			}
 			}
 		} 
 		
-		gameEnd();
+		StdOut.println(c.gameEnd());
 		
 	}
 	
-	public void playerTurns() {
-		StdOut.println(c.currentPlayer.name + " start your turn ?(Yes/No)");
-		String decision = scan.next(); 
-		c.playerTurn(decision);
-	
-		while (c.turnInProg) {
-			StdOut.println(c.currentPlayer.name + " would you like to roll? (Yes/No)");
-			String rollTurn = scan.next();
-			if (rollTurn.equalsIgnoreCase("Yes")) {
-				StdOut.println(c.playerTurnContinue(c.currentPlayer));
-			}
-			else if (rollTurn.equalsIgnoreCase("No")) {
-				StdOut.println(c.playerTurnEnd(c.currentPlayer));
-			}
-		} 
-	}
-	
-	public void gameEnd() {
-		Player winner = c.getWinner();
-		int winningScore = winner.getChip();
-		StdOut.println("\n The winner of the game is " + winner.name + " with " + winningScore + " chips!!!");
-	}
+
 	
 }

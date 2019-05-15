@@ -11,7 +11,7 @@ import edu.princeton.cs.introcs.StdOut;
 public class Controller {
 	
 	public ArrayList<Player> playerList = new ArrayList<Player>();
-	public Dice dice;
+	public SkunkDice dice;
 	public int kitty;
 	public int roundGoal = 100;
 	public Player currentPlayer;
@@ -51,7 +51,7 @@ public class Controller {
 		} 
 		else if (decision.equalsIgnoreCase("Yes")) {
 			turnInProg = true;
-			dice = new Dice();
+			dice = new SkunkDice();
 			message = "\n" + currentPlayer.name + "'s turn";
 		}
 		
@@ -60,7 +60,23 @@ public class Controller {
 	
 	//Method for player continuing their turn
 	public String playerTurnContinue(Player player) {
-		dice.roll(player);
+		dice.roll();
+		if (dice.isSkunk())
+		{
+			player.turnScore = 0;
+		}
+
+		else if (dice.isDoubleSkunk())
+		{
+			player.turnScore = 0;
+		}
+
+		else
+		{
+			player.turnScore += dice.getDiceValue();
+		}
+		
+//		player.setTurnScore(dice.getDiceValue());
 		return rollInfo(player);
 	}
 	

@@ -25,7 +25,7 @@ public class AppRunner {
 		roundInProg = true;
 
 		
-		for (int round = 1; round <=1; round++) {
+		for (int round = 1; round <=5; round++) {
 			roundInProg = true;
 			while (roundInProg) {
 			StdOut.println("\nRound " + round + "\n");

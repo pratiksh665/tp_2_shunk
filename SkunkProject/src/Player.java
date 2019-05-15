@@ -46,17 +46,10 @@ public class Player {
 		this.turnScore = turnScore;
 	}
 	
-	
 	public boolean checkHundred () {
 		if (getTurnScore() >= 100) {
 			return true;
 		}
 		return false;
 	}
-
-	public void setLastTurnScore(int turnScore) {
-		this.lastTurnScore = turnScore;;
-	}
-
-
 }

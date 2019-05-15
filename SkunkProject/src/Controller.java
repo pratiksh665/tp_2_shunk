@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import edu.princeton.cs.introcs.StdIn;
 import edu.princeton.cs.introcs.StdOut;
 
 public class Controller {
@@ -18,12 +19,10 @@ public class Controller {
 	public boolean turnInProg;
 	public boolean finalTurnsFlag;
 
-	public void createPlayer(int numPlayers) {
-		Scanner scan = new Scanner(System.in);
-		
+	public void createPlayers(int numPlayers) {		
 		for (int j = 1; j <= numPlayers; j++) {
 			StdOut.println("Player " + j + " Name: ");
-			Player player = new Player(scan.next());
+			Player player = new Player(StdIn.readLine());
 			playerList.add(player);
 		}
 		currentPlayerIndex=0;
@@ -172,7 +171,29 @@ public class Controller {
 		return winner;
 	}
 	
+	public void playerTurns() {
+		StdOut.println(currentPlayer.name + " start your turn ?(Yes/No)");
+		String decision = StdIn.readLine();
+		playerTurn(decision);
 	
+		while (turnInProg) {
+			StdOut.println(currentPlayer.name + " would you like to roll? (Yes/No)");
+			String rollTurn = StdIn.readLine();
+			if (rollTurn.equalsIgnoreCase("Yes")) {
+				StdOut.println(playerTurnContinue(currentPlayer));
+			}
+			else if (rollTurn.equalsIgnoreCase("No")) {
+				StdOut.println(playerTurnEnd(currentPlayer));
+			}
+		} 
+	}
+	
+	public String gameEnd() {
+		Player winner = getWinner();
+		int winningScore = winner.getChip();
+		String message = "\n The winner of the game is " + winner.name + " with " + winningScore + " chips!!!";
+		return message;
+	}
 	
 	
 	public void showRules() {

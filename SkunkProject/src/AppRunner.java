@@ -29,25 +29,31 @@ public class AppRunner {
 		roundInProg = true;
 		gameInProg = true;
 
-		while(gameInProg) {
-			roundInProg = true;
 		
-		while(roundInProg) {
-			int turnsLeft = numPlayers-1;
+		for (int round = 1; round <=5; round++) {
+			
+			StdOut.println("\nRound " + round + "\n");
+			
 			if (c.finalTurnsFlag) {
+				
+				int turnsLeft = numPlayers-1;
 				for (int i = 0; i < turnsLeft; i++) {
 					StdOut.println("\nFinal Turn in Round\n");
-					StdOut.println("turnsLeft " + turnsLeft);
-					StdOut.println("i in loop " + i);
 					playerTurns();	
 				}
+				
 				StdOut.println(c.roundEnd());
 				roundInProg = false;
-			} else {
+			} 
+			
+			else {
+				
 				playerTurns();
 			}
 		} 
-		}
+		
+		gameEnd();
+		
 	}
 	
 	public void playerTurns() {
@@ -65,6 +71,12 @@ public class AppRunner {
 				StdOut.println(c.playerTurnEnd(c.currentPlayer));
 			}
 		} 
+	}
+	
+	public void gameEnd() {
+		Player winner = c.getWinner();
+		int winningScore = winner.getChip();
+		StdOut.println("\n The winner of the game is " + winner.name + " with " + winningScore + " chips!!!");
 	}
 	
 }

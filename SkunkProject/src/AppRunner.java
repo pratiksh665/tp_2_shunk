@@ -13,7 +13,6 @@ public class AppRunner {
 	
 	
 	public void displayGame(Controller c) {
-		Scanner scan = new Scanner(System.in);
 		StdOut.println("Welcome to 635 Skunk project\n\n");
 		StdOut.println("Would you like to see the rules? (Yes/No)");
 		String decision = StdIn.readLine();
@@ -26,7 +25,8 @@ public class AppRunner {
 		roundInProg = true;
 
 		
-		for (int round = 1; round <=5; round++) {
+		for (int round = 1; round <=1; round++) {
+			roundInProg = true;
 			while (roundInProg) {
 			StdOut.println("\nRound " + round + "\n");
 			
@@ -49,7 +49,7 @@ public class AppRunner {
 			}
 		} 
 		
-		c.gameEnd();
+		StdOut.println(c.gameEnd());
 		
 	}
 	

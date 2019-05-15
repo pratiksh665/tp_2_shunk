@@ -34,8 +34,8 @@ public class Player {
 		return playerScore;
 	}
 	
-	public void addScore(int score) {
-		playerScore += score;
+	public void addScore(int points) {
+		playerScore += points;
 	}
 	
 	public int getTurnScore() {

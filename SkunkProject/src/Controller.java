@@ -92,10 +92,10 @@ public class Controller {
 	
 	public String rollInfo(Player player) {
 		String message = "\nRoll Info: "
-				+ "\nDie 1: " + dice.getDie1() + ";" + " Die 2: " + dice.getDie2()
+				+ "\nDie 1: " + dice.getDie1Value() + ";" + " Die 2: " + dice.getDie2Value()
 				+ "\nRoll total: " + dice.getDiceValue()
 				+ "\nTurn total: " + player.getTurnScore()
-				+ "\nRound total: " + player.getScore() + "  ||  Goal: " + roundGoal
+				+ "\nRound total: " + player.getRoundScore() + "  ||  Goal: " + roundGoal
 				+ "\nChip total: " + player.getChip()
 				+ "\n" + checkSkunk(player)
 				+ "\n" + checkHundred(player);
@@ -104,10 +104,10 @@ public class Controller {
 
 	public String playerTurnEnd(Player player) {
 		int turnScore = player.getTurnScore();
-		player.addScore(turnScore);
-		String message = "\n" + player.name + " is ending turn \nRound score : " + player.getScore() + " || Round goal: " + roundGoal + "\nChip Count: " + player.getChip();
-		if (player.getScore() >= roundGoal) {
-			setRoundGoal(player.getScore());
+		player.addRoundScore(turnScore);
+		String message = "\n" + player.name + " is ending turn \nRound score : " + player.getRoundScore() + " || Round goal: " + roundGoal + "\nChip Count: " + player.getChip();
+		if (player.getRoundScore() >= roundGoal) {
+			setRoundGoal(player.getRoundScore());
 			setFinalTurnFlag(true);
 			message += "\nPlayer " + player.name + " surpassed the goal.  Next player needs to beat " + roundGoal + " points";
 		}
@@ -122,15 +122,15 @@ public class Controller {
 		String message = "";
 		if (dice.isSkunk() || dice.isDoubleSkunk()) {
 			if (dice.isSkunk()) {
-				player.addSubChip(-1);
+				player.addChip(-1);
 				StdOut.println("chips: " + player.getChip());
 				kitty += 1;
-				message = "\nYou rolled a Skunk.\nTurn score set to 0. \n1 chip lost \nRound score is " + player.getScore() + "\nChip total is " + player.getChip() + "\n\n" + kitty + " chip(s) now in the kitty";
+				message = "\nYou rolled a Skunk.\nTurn score set to 0. \n1 chip lost \nRound score is " + player.getRoundScore() + "\nChip total is " + player.getChip() + "\n\n" + kitty + " chip(s) now in the kitty";
 				playerTurnEnd(currentPlayer);
 			}
 			else if (dice.isDoubleSkunk()) {
-				player.addScore(0);
-				player.addSubChip(-2);
+				player.addRoundScore(0);
+				player.addChip(-2);
 				kitty += 2;
 				message = "\nYou rolled a Double Skunk. \nTurn AND round score is set to 0. \n2 chips lost. \nChip total is " + player.getChip() + "\n" + kitty + " chip(s) now in the kitty";
 				playerTurnEnd(currentPlayer);
@@ -160,15 +160,15 @@ public class Controller {
 		Player roundWinner = null;
 		int roundKitty = kitty;
 		for (Player player : playerList) {
-			int score = player.getScore();
+			int score = player.getRoundScore();
 			if (score == roundGoal) {
 				roundWinner = player;
-				roundWinner.addSubChip(kitty);
+				roundWinner.addChip(kitty);
 			}
 			player.roundScore = 0;
 		}
 
-		String message = "\n" + roundWinner.name + " won the round with " + roundWinner.getScore() + " points! " + roundWinner.name + " receives " + roundKitty + " chip(s)\n";
+		String message = "\n" + roundWinner.name + " won the round with " + roundWinner.getRoundScore() + " points! " + roundWinner.name + " receives " + roundKitty + " chip(s)\n";
 		
 		kitty = 0;
 		roundGoal = 100;

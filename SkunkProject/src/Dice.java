@@ -33,12 +33,12 @@ public class Dice
 		die2.roll();
 	}
 	
-	public int getDie1() {
+	public int getDie1Value() {
 		return die1.getLastRoll();
 	}
 
 	
-	public int getDie2() {
+	public int getDie2Value() {
 		return die2.getLastRoll();
 	}
 

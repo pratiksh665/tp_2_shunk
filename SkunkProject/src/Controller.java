@@ -9,7 +9,7 @@ import edu.princeton.cs.introcs.StdOut;
 
 public class Controller {
 	
-	public ArrayList<Player> playerList = new ArrayList();
+	public ArrayList<Player> playerList = new ArrayList<Player>();
 	public Dice dice;
 	public int kitty;
 	public int roundGoal = 100;

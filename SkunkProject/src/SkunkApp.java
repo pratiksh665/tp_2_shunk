@@ -6,6 +6,7 @@ public class SkunkApp
 	public static void main(String[] args)
 	{
 		AppRunner game = new AppRunner();
-		game.displayGame();
+		
+		game.displayGame(new Controller());
 	}
 }

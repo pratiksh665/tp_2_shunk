@@ -5,11 +5,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import edu.princeton.cs.introcs.StdIn;
 import edu.princeton.cs.introcs.StdOut;
 
 public class Controller {
 	
-	public ArrayList<Player> playerList = new ArrayList();
+	public ArrayList<Player> playerList = new ArrayList<Player>();
 	public Dice dice;
 	public int kitty;
 	public int roundGoal = 100;
@@ -18,11 +19,10 @@ public class Controller {
 	public boolean turnInProg;
 	public boolean finalTurnsFlag;
 
-	public void createPlayer(int numPlayers) {
+	public void createPlayers(int numPlayers) {		
 		for (int j = 1; j <= numPlayers; j++) {
 			StdOut.println("Player " + j + " Name: ");
-			Scanner scan = new Scanner(System.in);
-			Player player = new Player(scan.next());
+			Player player = new Player(StdIn.readLine());
 			playerList.add(player);
 		}
 		currentPlayerIndex=0;
@@ -46,13 +46,13 @@ public class Controller {
 		String message = null;
 		if (decision.equalsIgnoreCase("No")) { // execute if user input = no
 			turnInProg = false;
-			message = currentPlayer.name + " skipped turn ";
+			message = "\n" + currentPlayer.name + " skipped turn ";
 			nextPlayer();
 		} 
 		else if (decision.equalsIgnoreCase("Yes")) {
 			turnInProg = true;
 			dice = new Dice();
-			message = currentPlayer.name + "'s turn";
+			message = "\n" + currentPlayer.name + "'s turn";
 		}
 		
 		return message;
@@ -76,11 +76,11 @@ public class Controller {
 	}
 	
 	public String rollInfo(Player player) {
-		String message = "Roll Info: "
+		String message = "\nRoll Info: "
 				+ "\nDie 1: " + getDie1Value() + ";" + " Die 2: " + getDie2Value()
 				+ "\nRoll total: " + getDiceValue()
-				+ "\nTurn total: " + player.getTurnScore() + "  ||  Goal: " + roundGoal
-				+ "\nGame total: " + player.getScore()
+				+ "\nTurn total: " + player.getTurnScore()
+				+ "\nRound total: " + player.getScore() + "  ||  Goal: " + roundGoal
 				+ "\nChip total: " + player.getChip()
 				+ "\n" + checkSkunk(player)
 				+ "\n" + checkHundred(player);
@@ -90,11 +90,12 @@ public class Controller {
 	public String playerTurnEnd(Player player) {
 		int turnScore = player.getTurnScore();
 		player.addScore(turnScore);
-		if (player.getTurnScore() >= roundGoal) {
-			setRoundGoal(player.getTurnScore());
+		String message = "\n" + player.name + " is ending turn \nRound score : " + player.getScore() + " || Round goal: " + roundGoal + "\nChip Count: " + player.getChip();
+		if (player.getScore() >= roundGoal) {
+			setRoundGoal(player.getScore());
 			setFinalTurnFlag(true);
+			message += "\nPlayer " + player.name + " surpassed the goal.  Next player needs to beat " + roundGoal + " points";
 		}
-		String message = player.name + " is ending turn \nRound score : " + player.getScore() + "\nChip Count: " + player.getChip();
 		turnInProg = false;
 		player.setLastTurnScore(turnScore);
 		player.setTurnScore(0);
@@ -106,18 +107,17 @@ public class Controller {
 		String message = "";
 		if (dice.isSkunk() || dice.isDoubleSkunk()) {
 			if (dice.isSkunk()) {
-				message = "You rolled a Skunk; end of turn \nTotal score is " + player.getScore();
 				player.addSubChip(-1);
 				StdOut.println("chips: " + player.getChip());
 				kitty += 1;
-				StdOut.println("kitty: " + kitty);
+				message = "\nYou rolled a Skunk.\nTurn score set to 0. \n1 chip lost \nRound score is " + player.getScore() + "\nChip total is " + player.getChip() + "\n\n" + kitty + " chip(s) now in the kitty";
 				playerTurnEnd(currentPlayer);
 			}
 			else if (dice.isDoubleSkunk()) {
 				player.addScore(0);
-				message = "You rolled a Double Skunk; \nend of turn \nTotal score is " + player.getScore();
 				player.addSubChip(-2);
 				kitty += 2;
+				message = "\nYou rolled a Double Skunk. \nTurn AND round score is set to 0. \n2 chips lost. \nChip total is " + player.getChip() + "\n" + kitty + " chip(s) now in the kitty";
 				playerTurnEnd(currentPlayer);
 			}
 		} 
@@ -145,21 +145,59 @@ public class Controller {
 		Player roundWinner = null;
 		int roundKitty = kitty;
 		for (Player player : playerList) {
-			int score = player.lastTurnScore;
+			int score = player.getScore();
 			if (score == roundGoal) {
 				roundWinner = player;
 				roundWinner.addSubChip(kitty);
 			}
 			player.roundScore = 0;
 		}
+
+		String message = "\n" + roundWinner.name + " won the round with " + roundWinner.getScore() + " points! " + roundWinner.name + " receives " + roundKitty + " chip(s)\n";
+		
 		kitty = 0;
 		roundGoal = 100;
 		finalTurnsFlag = false;
-		String message = "\n" + roundWinner.name + " won the round with " + roundWinner.getScore() + " points! " + roundWinner.name + " receives " + roundKitty + " chip(s)\n";
+		
 		return message;
 	}
 	
+	public Player getWinner() {
+		Player winner = null;
+		int winningScore = 0;
+		for (Player player : playerList) {
+			if(player.getChip() > winningScore) {
+				winningScore = player.getChip();
+				winner = player;
+			}
+		}
+		
+		return winner;
+	}
 	
+	public void playerTurns() {
+		StdOut.println(currentPlayer.name + " start your turn ?(Yes/No)");
+		String decision = StdIn.readLine();
+		playerTurn(decision);
+	
+		while (turnInProg) {
+			StdOut.println("\n" + currentPlayer.name + " would you like to roll? (Yes/No)");
+			String rollTurn = StdIn.readLine();
+			if (rollTurn.equalsIgnoreCase("Yes")) {
+				StdOut.println(playerTurnContinue(currentPlayer));
+			}
+			else if (rollTurn.equalsIgnoreCase("No")) {
+				StdOut.println(playerTurnEnd(currentPlayer));
+			}
+		} 
+	}
+	
+	public String gameEnd() {
+		Player winner = getWinner();
+		int winningScore = winner.getChip();
+		String message = "\n The winner of the game is " + winner.name + " with " + winningScore + " chips!!!";
+		return message;
+	}
 	
 	
 	public void showRules() {

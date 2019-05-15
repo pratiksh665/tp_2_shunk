@@ -7,65 +7,64 @@ import java.util.Scanner;
 
 import edu.princeton.cs.introcs.*;
 
-//-------------------------TP 1.2 changes--------------------------------------------------//
 public class AppRunner {
+	boolean turnInProg;
+	boolean roundInProg;
+	boolean gameInProg;
+	Controller c = new Controller();
+	Scanner scan = new Scanner(System.in);
 
-	public int numPlayers;
-
+	
 	
 	public void displayGame() {
-		Controller controller = new Controller();
 		StdOut.println("Welcome to 635 Skunk project");
 		StdOut.println("Creating the dice object");
-		Scanner scan = new Scanner(System.in);
 		StdOut.println("Would you like to see the rules? (Yes/No)");
 		if (scan.next().equalsIgnoreCase("Yes") ) {
-			controller.showRules();
+			c.showRules();
 		}
 		StdOut.println("Number of players: ");
-		numPlayers = scan.nextInt();
+		int numPlayers = scan.nextInt();
+		c.createPlayer(numPlayers);
+		roundInProg = true;
+		gameInProg = true;
+
+		while(gameInProg) {
+			roundInProg = true;
 		
-		for (int i = 1; i <= numPlayers; i++) {
-			StdOut.println("Player " + i + " Name: ");
-			controller.createPlayer(scan.next());
-		}
-
-		// Player Turn (For loop was used because we know that a Skunk game has 5 turns
-		// )
-
-//		while (!controller.isHundred) {
-
-			for (Player player : controller.playerList) {
-				StdOut.println(player.name + " start your turn ?(Yes/No)"); // user prompt
-				String decision = scan.next(); // storing user input
-				if (decision.equalsIgnoreCase("No")) { // execute if user input = no
-					StdOut.println(player.name + " skipped turn ");
+		while(roundInProg) {
+			int turnsLeft = numPlayers-1;
+			if (c.finalTurnsFlag) {
+				for (int i = 0; i < turnsLeft; i++) {
+					StdOut.println("\nFinal Turn in Round\n");
+					StdOut.println("turnsLeft " + turnsLeft);
+					StdOut.println("i in loop " + i);
+					playerTurns();	
 				}
-
-				while (decision.equalsIgnoreCase("Yes")) { // execute if user input = yes
-					controller.playerTurn();
-					StdOut.println(player.name + " would you like to roll? (Yes/No)");
-					String rollTurn = scan.next();
-					if (rollTurn.equalsIgnoreCase("Yes")) {
-						StdOut.println(controller.playerTurnContinue(player));
-						
-					}
-					
-					else if (rollTurn.equalsIgnoreCase("No")) {
-						controller.playerTurnEnd(player);
-						break;
-					}
-				} // end of while loop
-
-			} // end of for loop
-			
-			controller.showRules();
-
-			
-		} // end of while loop
-
-//	} // end of playgame method
-
-	// Updated showRules() method to display info from a text file called SkunkRules for code reusability
+				StdOut.println(c.roundEnd());
+				roundInProg = false;
+			} else {
+				playerTurns();
+			}
+		} 
+		}
+	}
 	
-} // end of class
+	public void playerTurns() {
+		StdOut.println(c.currentPlayer.name + " start your turn ?(Yes/No)");
+		String decision = scan.next(); 
+		c.playerTurn(decision);
+	
+		while (c.turnInProg) {
+			StdOut.println(c.currentPlayer.name + " would you like to roll? (Yes/No)");
+			String rollTurn = scan.next();
+			if (rollTurn.equalsIgnoreCase("Yes")) {
+				StdOut.println(c.playerTurnContinue(c.currentPlayer));
+			}
+			else if (rollTurn.equalsIgnoreCase("No")) {
+				StdOut.println(c.playerTurnEnd(c.currentPlayer));
+			}
+		} 
+	}
+	
+}

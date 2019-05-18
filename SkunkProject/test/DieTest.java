@@ -27,7 +27,7 @@ public class DieTest {
 		for (int i=0; i<=9; i++) {
 			die1.roll();
 			dieTest[i] = die1.getLastRoll();
-			System.out.println(dieTest[i]);
+//			System.out.println(dieTest[i]);
 		}
 		
 		String expected = Arrays.toString(new int[] {1,2,6,5,1,2,6,5,1,2});
@@ -59,7 +59,7 @@ public class DieTest {
 		  {
 			die1.roll();
 			dieTest[arrayIndex] = die1.getLastRoll();
-			System.out.println(dieTest[arrayIndex]);
+//			System.out.println(dieTest[arrayIndex]);
 		  }
 
 		String actual = Arrays.toString(dieTest );

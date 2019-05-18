@@ -1,10 +1,13 @@
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import org.junit.Before;
 import org.junit.Test;
 
 
 public class AppRunnerTest {
 
-	private AppRunner appRunner  = new AppRunner();
+//	private AppRunner appRunner  = new AppRunner();
 	private Controller controller;
 
 	private static final String NEW_LINE = "\n";
@@ -70,16 +73,16 @@ public class AppRunnerTest {
 	
 	
 
-
-	@Test
-	public void testYesChoice() {
-		appRunner = new AppRunnerInputMock("Yes", 2);
-		appRunner.displayGame(controller);
-	}
-	@Test
-	public void testNoChoice() {
-		appRunner = new AppRunnerInputMock("No", 2);
-		appRunner.displayGame(controller);
-	}
+//
+//	@Test
+//	public void testYesChoice() {
+//		appRunner = new AppRunnerInputMock("Yes", 2);
+//		appRunner.displayGame(controller);
+//	}
+//	@Test
+//	public void testNoChoice() {
+//		appRunner = new AppRunnerInputMock("No", 2);
+//		appRunner.displayGame(controller);
+//	}
 
 }

@@ -43,7 +43,7 @@ public class Player {
 	}
 	
 	public boolean checkHundred () {
-		if (getTurnScore() >= 100) {
+		if (getRoundScore() >= 100) {
 			return true;
 		}
 		return false;
@@ -52,5 +52,10 @@ public class Player {
 
 	public String getName() {
 		return name;
+	}
+
+
+	public void setRoundScore(int i) {
+		this.roundScore = i;
 	}
 }

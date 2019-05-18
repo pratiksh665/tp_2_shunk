@@ -1,6 +1,12 @@
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import edu.princeton.cs.introcs.StdOut;
 
 
 // Assert,assertEquals (expected, actual)
@@ -26,14 +32,24 @@ public class PlayerTest {
     @Test
     public void testPenalty() {
         Assert.assertEquals(50, p2.getChip());  //method gets the default value of the chip variable
-        p2.chipPenalty(10); // //method sets the updated value of the chip variable based on the argument passed into the function
+        p2.addChip(-10); // //method sets the updated value of the chip variable based on the argument passed into the function
 //        Assert.assertEquals(40, p2.getChip()); //method gets the updated value of the chip variable
     }
 
     @Test
-    public void setScoreTest() {
-        p3.setScore(100); //method sets the updated value of the playerScore variable based on the argument passed into the function
-        Assert.assertNull(p3.getScore()); //method gets the updated value of the playerScore variable
+    public void setRoundScoreTest() {
+        p3.setRoundScore(100); //method sets the updated value of the playerScore variable based on the argument passed into the function
+        Assert.assertTrue(100 == p3.getRoundScore());
+    }
+    
+    @Test
+    public void checkHundred() {
+    	p2.addRoundScore(105);
+    	assertTrue(p2.checkHundred() == true);
+    }
+    
+    public void testGetName() {
+    	
     }
 
 }

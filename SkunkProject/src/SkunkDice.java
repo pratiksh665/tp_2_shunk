@@ -8,7 +8,7 @@ public class SkunkDice extends Dice{
 
 	public boolean isSkunk()
 	{
-		return (getDie1() == 1 || getDie2() == 1 && getDiceValue() != 2);
+		return (getDie1Value() == 1 || getDie2Value() == 1 && getDiceValue() != 2);
 	}
 
 	public boolean isDoubleSkunk() {

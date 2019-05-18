@@ -48,19 +48,4 @@ public class Player {
 		}
 		return false;
 	}
-
-	public void chipPenalty(int i) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public Object getScore() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void setScore(int i) {
-		// TODO Auto-generated method stub
-		
-	}
 }

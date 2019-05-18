@@ -54,6 +54,14 @@ public class AppRunner {
 		
 	}
 	
-
+	public String getRulesChoice() {
+		StdOut.println("Would you like to see the rules? (Yes/No)");
+		return StdIn.readLine();
+	}
+	
+	public int getPlayers() {
+		StdOut.println("Number of players: ");
+		return Integer.parseInt(StdIn.readLine());
+	}
 	
 }

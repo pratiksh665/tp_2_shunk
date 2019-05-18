@@ -18,6 +18,7 @@ public class AppRunner {
 		String decision = StdIn.readLine();
 		if (decision.equalsIgnoreCase("Yes") ) {
 			c.showRules();
+			
 		}
 		
 /*Relates to createPlayers() future refactor

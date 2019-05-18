@@ -19,6 +19,7 @@ public class Controller {
 
 	
 	public Player getCurrentPlayer() {
+		
 		return currentPlayer;
 	}
 
@@ -37,12 +38,14 @@ public class Controller {
 //			return player;
 //			}
 	
+
 	public void createPlayers(int numPlayers) {		
 		for (int j = 1; j <= numPlayers; j++) {
 			StdOut.println("Player " + j + " Name: ");
 			Player player = new Player(StdIn.readLine());
 			playerList.add(player);
 		}
+		
 		currentPlayerIndex=0;
 		currentPlayer = playerList.get(currentPlayerIndex);
 		

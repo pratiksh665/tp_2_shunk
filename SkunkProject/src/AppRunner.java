@@ -21,8 +21,12 @@ public class AppRunner {
 		}
 		StdOut.println("Number of players: ");
 		int numPlayers = Integer.parseInt(StdIn.readLine());
-			
-		c.createPlayers(numPlayers);
+		for (int j = 1; j <= numPlayers; j++) {
+			StdOut.println("Player " + j + " Name: ");
+			String name = StdIn.readLine();
+			c.createPlayers(name);
+		}
+		StdOut.println("First player: " + c.currentPlayer.getName());
 		roundInProg = true;
 
 		

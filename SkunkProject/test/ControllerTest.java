@@ -17,7 +17,7 @@ public class ControllerTest {
 	
 	@Before
 	public void setUp() throws Exception {
-			System.out.println("CALLED");
+//			System.out.println("CALLED");
 			controller = new Controller();
 			String playerNames = new String("Tom" +NEW_LINE + "Alice" +  NEW_LINE + "Bob") ;
 			InputStream in = new ByteArrayInputStream(playerNames.getBytes());
@@ -65,9 +65,9 @@ public class ControllerTest {
 	@Test
 	public void testNextPlayer() {
 		int oldIndex = controller.getCurrentPlayerIndex();
-		System.out.println("old index:" + oldIndex);
+//		System.out.println("old index:" + oldIndex);
 		controller.nextPlayer();
-		System.out.println("new index:" + controller.getCurrentPlayerIndex());
+//		System.out.println("new index:" + controller.getCurrentPlayerIndex());
 		assert controller.getCurrentPlayerIndex() == (oldIndex + 1) % controller.playerList.size();
 		
 	}

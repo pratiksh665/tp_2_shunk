@@ -5,7 +5,9 @@ import org.junit.Test;
 
 public class SkunkDiceTest{
 
-	private SkunkDice sd; private Dice dice; private Die die1, die2; private int[] rollDie1, rollDie2;
+	private SkunkDice sd; 
+	private Die die1, die2; 
+	private int[] rollDie1, rollDie2;
 	
 	@Before
 	public void setUp() throws Exception
@@ -15,29 +17,29 @@ public class SkunkDiceTest{
 
 		this.rollDie2 = new int[] { 1, 2, 3 };
 		this.die2 = new Die(rollDie2);
-		
-		this.dice = new Dice(die1, die2);
-		
-		this.sd= new SkunkDice();
+				
+		this.sd= new SkunkDice(die1, die2);
 		
 	}
 	
 	@Test
 	public void testConstructor() {
 		sd=new SkunkDice();
+		assertNotNull(sd);
 	}
 	
 	@Test
-	public void testisSkunk() {		
-		dice.roll();
-		sd.isSkunk();
+	public void testisDoubleSkunk() {		
+		sd.roll();
+		assertTrue(sd.isDoubleSkunk());
 	}
 
 	
 	@Test
-	public void testisDoubleSkunk() {
-		dice.roll();
-		sd.isDoubleSkunk();
+	public void testisSkunk() {
+		sd.roll();
+		sd.roll();
+		assertFalse(sd.isSkunk());
 	}	
 	
 }

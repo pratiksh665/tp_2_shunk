@@ -5,6 +5,10 @@ public class SkunkDice extends Dice{
 		
 	}
 	
+	public SkunkDice(Die die1, Die die2) {
+		super(die1, die2);
+	}
+	
 
 	public boolean isSkunk()
 	{

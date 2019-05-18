@@ -19,6 +19,8 @@ public class AppRunner {
 		if (decision.equalsIgnoreCase("Yes") ) {
 			c.showRules();
 		}
+		
+/*Relates to createPlayers() future refactor
 		StdOut.println("Number of players: ");
 		int numPlayers = Integer.parseInt(StdIn.readLine());
 		for (int j = 1; j <= numPlayers; j++) {
@@ -27,8 +29,12 @@ public class AppRunner {
 			c.createPlayers(name);
 		}
 		StdOut.println("First player: " + c.currentPlayer.getName());
+		roundInProg = true;*/
+		
+		StdOut.println("Number of players: ");
+		int numPlayers = Integer.parseInt(StdIn.readLine());
+		c.createPlayers(numPlayers);
 		roundInProg = true;
-
 		
 		for (int round = 1; round <=5; round++) {
 			roundInProg = true;

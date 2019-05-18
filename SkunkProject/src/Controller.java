@@ -29,23 +29,25 @@ public class Controller {
 	public boolean turnInProg;
 	public boolean finalTurnsFlag;
 
-//	public void createPlayers(int numPlayers) {		
-//		for (int j = 1; j <= numPlayers; j++) {
-//			StdOut.println("Player " + j + " Name: ");
+	//better method:  loop is then placed in AppRunner based on user input; takes user input/app output out of the method
+//	public Player createPlayers(String name) {		
 //			Player player = new Player(StdIn.readLine());
 //			playerList.add(player);
-//		}
-//		currentPlayerIndex=0;
-//		currentPlayer = playerList.get(currentPlayerIndex);
-//		
-//		StdOut.println("First player: " + currentPlayer.name);
-//	}
+//			currentPlayer = playerList.get(currentPlayerIndex);
+//			return player;
+//			}
 	
-	public void createPlayers(String name) {		
+	public void createPlayers(int numPlayers) {		
+		for (int j = 1; j <= numPlayers; j++) {
+			StdOut.println("Player " + j + " Name: ");
 			Player player = new Player(StdIn.readLine());
 			playerList.add(player);
-			currentPlayer = playerList.get(currentPlayerIndex);
-			}
+		}
+		currentPlayerIndex=0;
+		currentPlayer = playerList.get(currentPlayerIndex);
+		
+		StdOut.println("First player: " + currentPlayer.name);
+}
 	
 	public void nextPlayer() {
 		if (currentPlayerIndex == (playerList.size() - 1)) {

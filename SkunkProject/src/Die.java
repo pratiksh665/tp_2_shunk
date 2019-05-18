@@ -24,7 +24,6 @@ public class Die
 			this.isItARandomRoll = false;
 			this.programmedRoll = runTimeArgForProgrammedRollArray;
 			this.arrayIndex = 0;
-			 this.roll();
 		}
 	}
 
@@ -37,7 +36,7 @@ public class Die
 	{
 		if (isItARandomRoll == true)
 		{
-			this.lastRoll = (int) (Math.random() * 40 + 1);
+			this.lastRoll = (int) (Math.random() * 6 + 1);
 		}
 		
 		else 

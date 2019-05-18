@@ -15,7 +15,8 @@ public class Controller {
 	public int kitty;
 	public int roundGoal = 100;
 	public Player currentPlayer;
-	public int currentPlayerIndex;
+	public int 	currentPlayerIndex=0;
+
 	
 	public Player getCurrentPlayer() {
 		return currentPlayer;
@@ -28,17 +29,23 @@ public class Controller {
 	public boolean turnInProg;
 	public boolean finalTurnsFlag;
 
-	public void createPlayers(int numPlayers) {		
-		for (int j = 1; j <= numPlayers; j++) {
-			StdOut.println("Player " + j + " Name: ");
+//	public void createPlayers(int numPlayers) {		
+//		for (int j = 1; j <= numPlayers; j++) {
+//			StdOut.println("Player " + j + " Name: ");
+//			Player player = new Player(StdIn.readLine());
+//			playerList.add(player);
+//		}
+//		currentPlayerIndex=0;
+//		currentPlayer = playerList.get(currentPlayerIndex);
+//		
+//		StdOut.println("First player: " + currentPlayer.name);
+//	}
+	
+	public void createPlayers(String name) {		
 			Player player = new Player(StdIn.readLine());
 			playerList.add(player);
-		}
-		currentPlayerIndex=0;
-		currentPlayer = playerList.get(currentPlayerIndex);
-		
-		StdOut.println("First player: " + currentPlayer.name);
-	}
+			currentPlayer = playerList.get(currentPlayerIndex);
+			}
 	
 	public void nextPlayer() {
 		if (currentPlayerIndex == (playerList.size() - 1)) {
@@ -167,17 +174,17 @@ public class Controller {
 
 	public String roundEnd() { 
 		Player roundWinner = null;
-		int roundKitty = kitty;
 		for (Player player : playerList) {
 			int score = player.getRoundScore();
 			if (score == roundGoal) {
+				StdOut.println(roundGoal);
 				roundWinner = player;
 				roundWinner.addChip(kitty);
 			}
 			player.roundScore = 0;
 		}
 
-		String message = "\n" + roundWinner.name + " won the round with " + roundWinner.getRoundScore() + " points! " + roundWinner.name + " receives " + roundKitty + " chip(s)\n";
+		String message = "\n" + roundWinner.name + " won the round with " + roundGoal + " points! " + roundWinner.name + " receives " + kitty + " chip(s)\n";
 		
 		kitty = 0;
 		roundGoal = 100;

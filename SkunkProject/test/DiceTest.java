@@ -21,6 +21,10 @@ public class DiceTest
 		this.dice = new Dice(die1, die2);
 	}
 	
+	@Test
+	public void testConstructor(){
+		dice=new Dice();
+	}
 
 	@Test
 	public void test_Init_PredictableDie()
@@ -54,6 +58,21 @@ public class DiceTest
 	{
 		dice.toString();
 		assertEquals("Dice with last roll:   =>  + ", "Dice with last roll:   =>  + ");
+	}
+	
+	@Test
+	public void testgetDie1Value(){
+		dice.getDie1Value();
+	}
+	
+	@Test
+	public void testgetDie2Value(){
+		dice.getDie2Value();
+	}
+	
+	@Test
+	public void testgetDiceValue(){
+		dice.getDiceValue();
 	}
 	
 }

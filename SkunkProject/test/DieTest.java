@@ -8,12 +8,18 @@ import org.junit.rules.ExpectedException;
 //-------------------------TP 1.1 changes--------------------------------------------------//
 public class DieTest {
 
+	private Die die;
+	
 	@Rule
 	  public final ExpectedException exception = ExpectedException.none();
 	
 	@Test
-	//Test that preprogrammed Die object is working as expected
-	public void loadedDieTest2() {
+	public void testConstructor(){
+		die=new Die();
+	}
+	
+	@Test
+	public void testLoadedDie2() {
 		int[] progRoll = {1,2,6,5};
 		Die die1 = new Die (progRoll);
 		int[] dieTest = new int[10];
@@ -41,7 +47,7 @@ public class DieTest {
 	
 	
 	@Test
-	public void loadedDieTest() {
+	public void testLoadedDie() {
 		int[] progRoll = {1,2,6,5};
 		Die die1 = new Die (progRoll);
 		int[] dieTest = new int[4];
@@ -59,8 +65,19 @@ public class DieTest {
 		String actual = Arrays.toString(dieTest );
 		String expected = Arrays.toString(new int[] {1,2,6,5});
 		
-		//Assert.assertEquals(actual,expected);
-		assertEquals(expected,actual); // rewritten code 
+		assertEquals(expected,actual);  
+	}
+	
+	@Test
+	public void testrandomroll() {
+		die=new Die();
+		die.roll();
+		Assert.assertTrue(die.isItARandomRoll);
+
+	
+		int[] progRoll = {1,2,6,5};
+		die = new Die(progRoll);
+		Assert.assertFalse(die.isItARandomRoll);
 	}
 
 }

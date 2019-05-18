@@ -2,14 +2,11 @@
 public class Dice
 
 {
-	private Die die1; //Dice talks to Die
-	private Die die2; //Dice talks to Die
-
+	private Die die1; 
+	private Die die2; 
+	
 	public Dice()
 	{
-		// initialize instance variables die1 and die2 by
-		// creating a new instance of each
-
 		this.die1 = new Die();
 		this.die2 = new Die();
 	}
@@ -41,7 +38,6 @@ public class Dice
 	public int getDie2Value() {
 		return die2.getLastRoll();
 	}
-
 	
 	public int getDiceValue()
 	{
@@ -49,18 +45,7 @@ public class Dice
 	}
 
 	public int getLastRoll() {
-		// TODO Auto-generated method stub
 		return die1.getLastRoll() + die2.getLastRoll();
 	}
 
-	public int getDie2() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public int getDie1() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
 }

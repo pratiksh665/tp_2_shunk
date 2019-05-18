@@ -14,9 +14,9 @@ public class ControllerTest {
 	private static final int START_PLAYER = 0;
 	
 	
+	
 	@Before
 	public void setUp() throws Exception {
-		if(controller == null){
 			System.out.println("CALLED");
 			controller = new Controller();
 			String playerNames = new String("Tom" +NEW_LINE + "Alice" +  NEW_LINE + "Bob") ;
@@ -24,32 +24,32 @@ public class ControllerTest {
 			System.setIn(in);
 			controller.createPlayers(3);
 			System.setIn(System.in);
-		}
+		
 		dice = new SkunkDice();
 		controller.dice = dice;
 		controller.currentPlayer = controller.playerList.get(START_PLAYER);
 	}
 	//To return exact dice value for Assertion, Mock methods of SkunkDice
 	class SkunkDiceMock extends SkunkDice {
-		private int dice1Value;
-		private int dice2Value;
-		public SkunkDiceMock(int dice1Value, int dice2Value) {
-			this.dice1Value = dice1Value;
-			this.dice2Value = dice2Value;
+		private int die1Value;
+		private int die2Value;
+		public SkunkDiceMock(int die1Value, int die2Value) {
+			this.die1Value = die1Value;
+			this.die2Value = die2Value;
 		}
 		
 		@Override
 		public int getDie1Value(){
-			return dice1Value;
+			return die1Value;
 		}
 		@Override
 		public int getDie2Value(){
-			return dice2Value;
+			return die2Value;
 		}
 		
 		@Override
 		public int getDiceValue(){
-			return dice1Value+dice2Value;
+			return die1Value+die2Value;
 		}
 		
 		
